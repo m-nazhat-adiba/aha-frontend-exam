@@ -64,7 +64,7 @@ const SearchResult = () => {
     <div
       ref={resultContainerRef}
       onScroll={infiniteScrollEnabled ? handleScroll : undefined} // Scroll only if enabled
-      className="ml-0 flex h-full w-full flex-col items-start justify-between overflow-y-auto px-5 lg:ml-[80px] lg:px-[130px] lg:pt-[92px]"
+      className="no-scrollbar ml-0 flex h-full w-full flex-col items-start justify-between overflow-y-auto px-5 lg:ml-[80px] lg:px-[130px] lg:pt-[92px]"
     >
       <div className="mb-5 flex h-[70px] -translate-x-0 flex-row items-center gap-[13px] lg:mb-0 lg:h-auto lg:-translate-x-[38px] lg:transform lg:gap-[25px]">
         <div onClick={handleClearSearchResult}>
