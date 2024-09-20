@@ -37,6 +37,7 @@ const useInfiniteScroll = (
 
   const handleScroll = (event: React.UIEvent<HTMLDivElement, UIEvent>) => {
     const { scrollTop, scrollHeight, clientHeight } = event.currentTarget;
+    console.log(scrollHeight - scrollTop, clientHeight, "page scroll");
     if (
       scrollHeight - scrollTop <= clientHeight + 10 &&
       hasMore &&

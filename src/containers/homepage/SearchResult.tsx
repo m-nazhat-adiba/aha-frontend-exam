@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ContentCard from "./_components/ContentCard";
 import Image from "next/image";
 import BasicButton from "@/components/button/BasicButton";
@@ -12,7 +12,7 @@ import ContentCardSkeleton from "./_components/ContentCardSkeleton";
 const SearchResult = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [infiniteScrollEnabled, setInfiniteScrollEnabled] = useState(false); // Control scroll
+  const [viewpoertWidth, setViewportWidth] = useState(window.innerWidth);
 
   const searchKeyword = useSelector((state: RootState) => state.search.keyword);
   const searchPageSize = useSelector(
@@ -62,13 +62,20 @@ const SearchResult = () => {
 
   const arr = Array.from({ length: 9 }, (_, i) => i);
 
+  useEffect(() => {
+    setViewportWidth(window.innerWidth);
+    if (viewpoertWidth <= 640) {
+      dispatch(setLoadMore(true));
+    }
+  }, [window.innerWidth]);
+
   return (
     <div
       ref={resultContainerRef}
       onScroll={loadMore ? handleScroll : undefined} // Scroll only if enabled
       className="no-scrollbar ml-0 flex h-full w-full flex-col items-start justify-between overflow-y-auto px-5 lg:ml-[80px] lg:px-[130px] lg:pt-[92px]"
     >
-      <div className="mb-5 flex h-[70px] -translate-x-0 flex-row items-center gap-[13px] lg:mb-0 lg:h-auto lg:-translate-x-[38px] lg:transform lg:gap-[25px]">
+      <div className="mb-5 flex max-h-[70px] min-h-[70px] -translate-x-0 flex-row items-center gap-[13px] lg:mb-0 lg:h-auto lg:-translate-x-[38px] lg:transform lg:gap-[25px]">
         <div onClick={handleClearSearchResult}>
           <Image
             alt="back"
