@@ -7,6 +7,7 @@ import { avlApi, useSearchQuery } from "@/lib/services/api";
 import { resetSearchState, setLoadMore } from "@/lib/features/SearchSlice";
 import { RootState } from "@/lib/store";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
+import ContentCardSkeleton from "./_components/ContentCardSkeleton";
 
 const SearchResult = () => {
   const [page, setPage] = useState(1);
@@ -59,6 +60,8 @@ const SearchResult = () => {
     setPage((prevPage) => prevPage + 1);
   };
 
+  const arr = Array.from({ length: 9 }, (_, i) => i);
+
   return (
     <div
       ref={resultContainerRef}
@@ -82,7 +85,7 @@ const SearchResult = () => {
       </div>
       <div className="text-2xl lg:hidden">Results</div>
 
-      <div className="grid w-full grid-cols-1 flex-wrap gap-[34px] pb-[58px] pt-6 sm:grid-cols-2 md:grid-cols-3 lg:flex lg:w-auto lg:flex-row lg:justify-start">
+      <div className="grid w-full grid-cols-1 flex-wrap gap-[34px] pb-[58px] pt-6 sm:grid-cols-2 md:grid-cols-3 lg:flex lg:w-auto lg:flex-row lg:items-start lg:justify-start">
         {searchResult &&
           items.map((item, key) => (
             <ContentCard
@@ -92,6 +95,8 @@ const SearchResult = () => {
               key={key}
             />
           ))}
+        {!searchResult &&
+          arr.map((item, key) => <ContentCardSkeleton key={key} />)}
       </div>
       <div className="hidden w-[343px] pt-[23px] lg:flex">
         {searchResult && items.length < searchResult.total && !loadMore && (
