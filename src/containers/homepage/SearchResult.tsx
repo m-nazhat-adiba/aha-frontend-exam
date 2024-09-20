@@ -46,7 +46,7 @@ const SearchResult = () => {
     isFetching,
     resultContainerRef,
     searchResult?.total,
-    0,
+    100,
   );
 
   const handleClearSearchResult = () => {
