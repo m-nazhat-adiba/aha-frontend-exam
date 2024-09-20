@@ -2,32 +2,75 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
   }
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: #181818;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+.MuiSlider-root {
+  height: 8px;
+  .MuiSlider-rail {
+    background-color: #5d5d5d;
+    opacity: 100;
+  }
+  .MuiSlider-track {
+    background: linear-gradient(
+      270deg,
+      rgb(255, 210, 95) 0%,
+      rgb(255, 92, 1) 100%
+    );
+    border: none;
+  }
+  .MuiSlider-mark {
+    display: none !important;
+  }
+  .MuiSlider-markActive {
+    display: none !important;
+  }
+  .MuiSlider-markLabel {
+    color: #8b8b8b;
+    font-weight: 500;
+    font-size: 14px;
+    top: 36px;
+    @screen md {
+      font-size: 16px;
+      top: 32px;
+    }
+    @screen lg {
+      top: 28px;
+    }
+  }
+  .MuiSlider-thumb {
+    background: rgb(255, 208, 93);
+  }
+  .MuiSlider-thumb::after {
+    transform: translate(-50%, -50%);
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: black;
   }
 }
