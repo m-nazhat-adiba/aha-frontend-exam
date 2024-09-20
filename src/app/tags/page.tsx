@@ -1,3 +1,5 @@
+"use client";
+
 import TagList from "@/pages/tags/TagList";
 import Image from "next/image";
 import Link from "next/link";
