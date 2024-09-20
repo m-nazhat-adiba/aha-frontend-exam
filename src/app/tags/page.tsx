@@ -1,6 +1,6 @@
 "use client";
 
-import TagList from "@/pages/tags/TagList";
+import TagList from "@/containers/tags/TagList";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";

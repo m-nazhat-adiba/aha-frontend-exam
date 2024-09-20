@@ -1,8 +1,8 @@
 "use client";
 
-import InputsSection from "@/pages/homepage/InputsSection";
-import NetworkingSection from "@/pages/homepage/NetworkingSection";
-import SearchResult from "@/pages/homepage/SearchResult";
+import InputsSection from "@/containers/homepage/InputsSection";
+import NetworkingSection from "@/containers/homepage/NetworkingSection";
+import SearchResult from "@/containers/homepage/SearchResult";
 import { RootState } from "@/store/store";
 import { useSelector } from "react-redux";
 
