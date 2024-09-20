@@ -5,7 +5,7 @@ import {
   setKeyword,
   setPageSize,
   setSearchTrigger,
-} from "@/lib/slices/SearchSlice";
+} from "@/lib/features/SearchSlice";
 import { RootState } from "@/lib/store";
 import { useDispatch, useSelector } from "react-redux";
 

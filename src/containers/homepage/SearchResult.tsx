@@ -4,7 +4,7 @@ import Image from "next/image";
 import BasicButton from "@/components/button/BasicButton";
 import { useDispatch, useSelector } from "react-redux";
 import { avlApi, useSearchQuery } from "@/lib/services/api";
-import { resetSearchState, setLoadMore } from "@/lib/slices/SearchSlice";
+import { resetSearchState, setLoadMore } from "@/lib/features/SearchSlice";
 import { RootState } from "@/lib/store";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 
