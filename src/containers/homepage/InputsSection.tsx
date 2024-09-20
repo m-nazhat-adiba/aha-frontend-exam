@@ -31,7 +31,7 @@ const InputsSection = () => {
 
   return (
     <div className="flex h-full w-full translate-x-0 flex-col items-start px-5 pt-0 lg:translate-x-[80px] lg:px-[130px] lg:pt-[58px]">
-      <div className="h-[88px] w-full">
+      <div className="block h-[88px] w-full lg:hidden">
         <div className="mb-2 flex h-[88px] w-full">
           <span className="flex items-center justify-center bg-gradient-to-r from-[#FFD25F] to-[#FF5C01] bg-clip-text text-[13px] font-bold leading-[14.94] text-transparent">
             LOGO
