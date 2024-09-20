@@ -2,8 +2,8 @@ import React from "react";
 import Image from "next/image";
 import ContentCardSkeleton from "./_components/ContentCardSkeleton";
 import { useDispatch } from "react-redux";
-import { avlApi } from "@/services/api";
-import { resetSearchState } from "@/slices/SearchSlice";
+import { avlApi } from "@/lib/services/api";
+import { resetSearchState } from "@/lib/slices/SearchSlice";
 
 const SearchResultLoading = () => {
   const dispatch = useDispatch();

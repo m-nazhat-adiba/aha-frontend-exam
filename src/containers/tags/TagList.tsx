@@ -2,7 +2,7 @@
 
 import React from "react";
 import TagCard from "./_components/TagCard";
-import { useTagsQuery } from "@/services/api";
+import { useTagsQuery } from "@/lib/services/api";
 import TagCardSkeleton from "./_components/TagCardSkeleton";
 
 const TagList = () => {

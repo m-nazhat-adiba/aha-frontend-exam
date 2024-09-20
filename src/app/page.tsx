@@ -3,7 +3,7 @@
 import InputsSection from "@/containers/homepage/InputsSection";
 import NetworkingSection from "@/containers/homepage/NetworkingSection";
 import SearchResult from "@/containers/homepage/SearchResult";
-import { RootState } from "@/store/store";
+import { RootState } from "@/lib/store";
 import { useSelector } from "react-redux";
 
 export default function Home() {

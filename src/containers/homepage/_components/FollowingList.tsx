@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import UserCard from "./UserCard";
-import { useFollowingQuery } from "@/services/api";
+import { useFollowingQuery } from "@/lib/services/api";
 import UserCardSkeleton from "./UserCardSkeleton";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Slider } from "@mui/material";
 import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
+import { RootState } from "@/lib/store";
 
 interface Props {
   sliderMarks: number[];

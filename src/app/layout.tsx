@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Ubuntu } from "next/font/google";
 import "./globals.css";
 import SideBar from "@/components/navigation/SideBar";
-import ReduxProvider from "@/provider/ReduxProvider";
+import StoreProvider from "./StoreProvider";
 
 const ubuntu = Ubuntu({
   subsets: ["latin"],
@@ -21,12 +21,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <ReduxProvider>
+      <StoreProvider>
         <body className={ubuntu.className}>
           <SideBar />
           {children}
         </body>
-      </ReduxProvider>
+      </StoreProvider>
     </html>
   );
 }

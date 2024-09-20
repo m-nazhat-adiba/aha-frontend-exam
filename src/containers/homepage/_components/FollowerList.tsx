@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import UserCard from "./UserCard";
-import { useFollowerQuery } from "@/services/api";
+import { useFollowerQuery } from "@/lib/services/api";
 import useVisibilityObserver from "@/hooks/useVisibilityObserver";
 import UserCardSkeleton from "./UserCardSkeleton";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";

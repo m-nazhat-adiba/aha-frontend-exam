@@ -5,8 +5,8 @@ import {
   setKeyword,
   setPageSize,
   setSearchTrigger,
-} from "@/slices/SearchSlice";
-import { RootState } from "@/store/store";
+} from "@/lib/slices/SearchSlice";
+import { RootState } from "@/lib/store";
 import { useDispatch, useSelector } from "react-redux";
 
 const InputsSection = () => {

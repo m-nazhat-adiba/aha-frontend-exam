@@ -3,9 +3,9 @@ import ContentCard from "./_components/ContentCard";
 import Image from "next/image";
 import BasicButton from "@/components/button/BasicButton";
 import { useDispatch, useSelector } from "react-redux";
-import { avlApi, useSearchQuery } from "@/services/api";
-import { resetSearchState, setLoadMore } from "@/slices/SearchSlice";
-import { RootState } from "@/store/store";
+import { avlApi, useSearchQuery } from "@/lib/services/api";
+import { resetSearchState, setLoadMore } from "@/lib/slices/SearchSlice";
+import { RootState } from "@/lib/store";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 
 const SearchResult = () => {
