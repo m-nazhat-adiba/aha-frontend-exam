@@ -1,85 +1,42 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Slider } from "@mui/material";
-import { useSelector } from "react-redux";
-import { RootState } from "@/lib/store";
+/**
+ * @fileoverview A customizable non-linear slider component for selecting values based on predefined marks.
+ *
+ * This component uses the Material-UI Slider and provides functionalities to handle non-linear scaling of values.
+ *
+ * @param sliderMarks - An array of marks representing the positions on the slider.
+ * @param setSliderValue - A function to update the selected slider value.
+ * @param generateMarks - An optional function to generate slider marks. Defaults to `defaultGenerateMarks`.
+ * @param valueToLabel - An optional function to convert value to label. Defaults to `defaultValueToLabel`.
+ * @returns The rendered non-linear slider component.
+ */
+
+import React, { useCallback, useEffect, useState } from 'react';
+import { Slider } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/lib/store';
+import {
+  defaultGenerateMarks,
+  defaultLabelToValue,
+  defaultValueToLabel,
+} from '../../utils/NonLinearSliderFunction';
 
 interface Props {
   sliderMarks: number[];
   setSliderValue: (value: number) => void;
-  generateMarks?: (sliderMarks: number[]) => { value: number; label: string }[];
+  generateMarks?: (sliderMarks: number[]) => { value: number; label: number }[];
   valueToLabel?: (
-    marks: { value: number; label: string }[],
+    marks: { value: number; label: number }[],
     value: number,
   ) => number;
 }
 
-const defaultGenerateMarks = (sliderMarks: number[]) => {
-  const marks = [];
-  for (let i = 0; i < sliderMarks.length; i++) {
-    if (i < sliderMarks.length - 1) {
-      marks.push({ value: i * 2, label: `${sliderMarks[i]}` });
-    } else {
-      marks.push({
-        value: sliderMarks.length * 2,
-        label: `${sliderMarks[i]}`,
-      });
-    }
-  }
-  return marks;
-};
-
-const defaultLabelToValue = (
-  marks: { value: number; label: string }[],
-  label: number,
-) => {
-  const marksLength = marks.length;
-  const stringLabel = `${label}`;
-  let resolvedValue = 0;
-
-  for (let i = 0; i < marksLength; i++) {
-    if (stringLabel === marks[i].label) {
-      resolvedValue = marks[i].value;
-    }
-  }
-  return resolvedValue;
-};
-
-const defaultValueToLabel = (
-  marks: { value: number; label: string }[],
-  value: number,
-) => {
-  if (marks.length < 2) {
-    return value;
-  }
-
-  if (value <= marks[marks.length - 2].value) {
-    const resolvedIndex = Math.floor(value / 2);
-    return parseFloat(marks[resolvedIndex]?.label || "0");
-  } else {
-    const baseLabelValue = parseFloat(marks[marks.length - 2].label);
-    const maxLabelValue = parseFloat(marks[marks.length - 1].label);
-    const baseValue = marks[marks.length - 2].value;
-    const maxValue = marks.length * 2;
-
-    const valueResultant = maxValue - baseValue;
-    const labelValueResultant = maxLabelValue - baseLabelValue;
-    const resolvedValue = Math.floor(
-      baseLabelValue +
-        ((value - baseValue) / valueResultant) * labelValueResultant,
-    );
-
-    return resolvedValue;
-  }
-};
-
-// Component
-function NonLinearSlider({
+export const NonLinearSlider: React.FC<Props> = ({
   sliderMarks,
   setSliderValue,
   generateMarks = defaultGenerateMarks,
   valueToLabel = defaultValueToLabel,
-}: Props) {
-  const [marks, setMarks] = useState<{ value: number; label: string }[]>([]);
+}) => {
+  const [marks, setMarks] = useState<{ value: number; label: number }[]>([]);
   const [val, setVal] = useState<number>(0);
 
   const reduxPageSize = useSelector(
@@ -89,16 +46,16 @@ function NonLinearSlider({
   const handleChange = useCallback(
     (event: Event, newValue: number | number[]) => {
       const resolvedValue = newValue as number;
-      const snapValue = () => {
-        return resolvedValue % 2 === 0 ? resolvedValue : resolvedValue + 1;
-      };
+      const snapValue =
+        resolvedValue % 2 === 0 ? resolvedValue : resolvedValue + 1;
       const finalValue =
         resolvedValue <= marks[marks.length - 2].value
-          ? snapValue()
-          : resolvedValue;
+          ? snapValue
+          : marks[marks.length - 1].value;
 
       setVal(finalValue);
       setSliderValue(valueToLabel(marks, finalValue));
+      console.log(valueToLabel(marks, finalValue), 'slider label');
     },
     [marks, setSliderValue, valueToLabel],
   );
@@ -109,7 +66,7 @@ function NonLinearSlider({
 
   useEffect(() => {
     setVal(defaultLabelToValue(marks, reduxPageSize));
-  }, [marks]);
+  }, [marks, reduxPageSize]);
 
   return (
     <div className="w-full">
@@ -127,6 +84,4 @@ function NonLinearSlider({
       />
     </div>
   );
-}
-
-export default NonLinearSlider;
+};

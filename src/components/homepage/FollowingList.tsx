@@ -1,51 +1,41 @@
-"use client";
-
-import React, { useState, useRef, useEffect } from "react";
-import UserCard from "./UserCard";
-import { useFollowerQuery } from "@/lib/services/api";
-import useVisibilityObserver from "@/hooks/useVisibilityObserver";
-import UserCardSkeleton from "./UserCardSkeleton";
-import useInfiniteScroll from "@/hooks/useInfiniteScroll";
+import React, { useRef, useState } from 'react';
+import { UserCard } from '../cards/UserCard';
+import { useFollowingQuery } from '@/lib/services/api';
+import { UserCardSkeleton } from '../skeleton/UserCardSkeleton';
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 
 interface Props {
   offset: number;
 }
 
-const FollowerList = ({ offset }: Props) => {
-  const [isVisible, setIsVisible] = useState(false);
+export const FollowingList = ({ offset }: Props) => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-
-  const followerContainerRef = useRef<HTMLDivElement | null>(null);
-
-  useVisibilityObserver({
-    setter: setIsVisible,
-    reference: followerContainerRef,
-  });
+  const followingContainerRef = useRef<HTMLDivElement | null>(null);
 
   const {
-    data: followerResponse,
+    data: followingResponse,
     error,
     isFetching,
-  } = useFollowerQuery(
+  } = useFollowingQuery(
     {
       page: page,
-      keyword: "",
+      keyword: '',
       pageSize: 20,
     },
     {
-      skip: !isVisible || !hasMore,
+      skip: !hasMore,
     },
   );
 
   const { items, handleScroll } = useInfiniteScroll(
-    followerResponse?.data,
+    followingResponse?.data || [],
     setPage,
     setHasMore,
     hasMore,
     isFetching,
-    followerContainerRef,
-    followerResponse?.total,
+    followingContainerRef,
+    followingResponse?.total || 0,
     offset,
   );
 
@@ -53,11 +43,11 @@ const FollowerList = ({ offset }: Props) => {
 
   return (
     <div
-      ref={followerContainerRef}
+      ref={followingContainerRef}
       onScroll={handleScroll}
       className="no-scrollbar sticky top-0 z-[9999] flex h-[calc(100vh_-_102px)] flex-col gap-4 overflow-y-scroll px-4"
     >
-      {followerResponse
+      {followingResponse
         ? items.map((item, key) => (
             <UserCard
               name={item.name}
@@ -69,9 +59,7 @@ const FollowerList = ({ offset }: Props) => {
           ))
         : skeletonArray.map((key) => <UserCardSkeleton key={key} />)}
 
-      {isFetching && followerResponse && <UserCardSkeleton />}
+      {isFetching && followingResponse && <UserCardSkeleton />}
     </div>
   );
 };
-
-export default FollowerList;

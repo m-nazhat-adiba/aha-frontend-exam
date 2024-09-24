@@ -1,26 +1,34 @@
-import React, { useRef, useState } from "react";
-import UserCard from "./UserCard";
-import { useFollowingQuery } from "@/lib/services/api";
-import UserCardSkeleton from "./UserCardSkeleton";
-import useInfiniteScroll from "@/hooks/useInfiniteScroll";
+import React, { useState, useRef, useEffect } from 'react';
+import { UserCard } from '../cards/UserCard';
+import { useFollowerQuery } from '@/lib/services/api';
+import { useVisibilityObserver } from '@/hooks/useVisibilityObserver';
+import { UserCardSkeleton } from '../skeleton/UserCardSkeleton';
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 
 interface Props {
   offset: number;
 }
 
-const FollowingList = ({ offset }: Props) => {
+export const FollowerList = ({ offset }: Props) => {
+  const [isVisible, setIsVisible] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const followingContainerRef = useRef<HTMLDivElement | null>(null);
+
+  const followerContainerRef = useRef<HTMLDivElement | null>(null);
+
+  useVisibilityObserver({
+    setter: setIsVisible,
+    reference: followerContainerRef,
+  });
 
   const {
-    data: followingResponse,
+    data: followerResponse,
     error,
     isFetching,
-  } = useFollowingQuery(
+  } = useFollowerQuery(
     {
       page: page,
-      keyword: "",
+      keyword: '',
       pageSize: 20,
     },
     {
@@ -29,13 +37,13 @@ const FollowingList = ({ offset }: Props) => {
   );
 
   const { items, handleScroll } = useInfiniteScroll(
-    followingResponse?.data,
+    followerResponse?.data || [],
     setPage,
     setHasMore,
     hasMore,
     isFetching,
-    followingContainerRef,
-    followingResponse?.total,
+    followerContainerRef,
+    followerResponse?.total || 0,
     offset,
   );
 
@@ -43,11 +51,11 @@ const FollowingList = ({ offset }: Props) => {
 
   return (
     <div
-      ref={followingContainerRef}
+      ref={followerContainerRef}
       onScroll={handleScroll}
       className="no-scrollbar sticky top-0 z-[9999] flex h-[calc(100vh_-_102px)] flex-col gap-4 overflow-y-scroll px-4"
     >
-      {followingResponse
+      {followerResponse
         ? items.map((item, key) => (
             <UserCard
               name={item.name}
@@ -59,9 +67,7 @@ const FollowingList = ({ offset }: Props) => {
           ))
         : skeletonArray.map((key) => <UserCardSkeleton key={key} />)}
 
-      {isFetching && followingResponse && <UserCardSkeleton />}
+      {isFetching && followerResponse && <UserCardSkeleton />}
     </div>
   );
 };
-
-export default FollowingList;

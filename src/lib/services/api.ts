@@ -1,24 +1,44 @@
-import { SearchResponse, SearchQueryParams } from "@/models/SearchQuery";
-import { TagsResponse } from "@/models/TagsQuery";
-import { FollowerResponse, followingResponse } from "@/models/UsersQuery";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+/**
+ * @fileoverview Defines and configures API endpoints using RTK Query for handling search, follower, following, and tag data fetching.
+ *
+ * This file exports several hooks for interacting with the API:
+ * `useSearchQuery`, `useFollowerQuery`, `useFollowingQuery`, and `useTagsQuery`.
+ *
+ * These hooks provide easy access to the search, follower, following, and tag data.
+ *
+ * @example
+ * // Usage in a React component
+ * import { useSearchQuery, useFollowerQuery, useFollowingQuery, useTagsQuery } from '@/lib/services/api';
+ *
+ * function ExampleComponent() {
+ *   const { data: searchData } = useSearchQuery({ keyword: 'example', page: 1, pageSize: 10 });
+ *   const { data: followerData } = useFollowerQuery({ keyword: 'user', page: 1, pageSize: 10 });
+ *   const { data: followingData } = useFollowingQuery({ keyword: 'friend', page: 1, pageSize: 10 });
+ *   const { data: tagsData } = useTagsQuery();
+ * }
+ */
 
-export const avlApi = createApi({
-  reducerPath: "avlApi",
+import { SearchResponse, SearchQueryParams } from '@/models/SearchQuery';
+import { TagsResponse } from '@/models/TagsQuery';
+import { FollowerResponse, followingResponse } from '@/models/UsersQuery';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+export const userApi = createApi({
+  reducerPath: 'userApi',
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.NEXT_PUBLIC_API_URL}/api`,
   }),
-  tagTypes: ["SearchResult", "Follower", "Following", "Tags"],
+  tagTypes: ['SearchResult', 'Follower', 'Following', 'Tags'],
   endpoints: (builder) => ({
     // search
     search: builder.query<SearchResponse, SearchQueryParams>({
       query: (params) => {
         return {
-          url: "/users/all",
+          url: '/users/all',
           params,
         };
       },
-      providesTags: ["SearchResult"],
+      providesTags: ['SearchResult'],
       keepUnusedDataFor: 3600,
     }),
 
@@ -26,11 +46,11 @@ export const avlApi = createApi({
     follower: builder.query<FollowerResponse, SearchQueryParams>({
       query: (params) => {
         return {
-          url: "/users/all",
+          url: '/users/all',
           params,
         };
       },
-      providesTags: ["Follower"],
+      providesTags: ['Follower'],
       keepUnusedDataFor: 3600,
     }),
 
@@ -38,18 +58,18 @@ export const avlApi = createApi({
     following: builder.query<followingResponse, SearchQueryParams>({
       query: (params) => {
         return {
-          url: "/users/friends",
+          url: '/users/friends',
           params,
         };
       },
-      providesTags: ["Following"],
+      providesTags: ['Following'],
       keepUnusedDataFor: 3600,
     }),
 
     // tags
     tags: builder.query<TagsResponse[], void>({
-      query: () => "tags",
-      providesTags: ["Tags"],
+      query: () => 'tags',
+      providesTags: ['Tags'],
       keepUnusedDataFor: 3600,
     }),
   }),
@@ -60,4 +80,4 @@ export const {
   useFollowerQuery,
   useFollowingQuery,
   useTagsQuery,
-} = avlApi;
+} = userApi;

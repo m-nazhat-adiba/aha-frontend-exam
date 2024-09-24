@@ -1,7 +1,7 @@
-import BasicButton from "@/components/button/BasicButton";
-import { faker } from "@faker-js/faker";
-import Image from "next/image";
-import React from "react";
+import { BasicButton } from '@/components/button/BasicButton';
+import { faker } from '@faker-js/faker';
+import Image from 'next/image';
+import React from 'react';
 
 interface CardProps {
   name: string;
@@ -10,13 +10,14 @@ interface CardProps {
   isFollowing: boolean;
 }
 
-const UserCard: React.FC<CardProps> = ({
+export const UserCard: React.FC<CardProps> = ({
   name,
   username,
   src,
   isFollowing,
 }) => {
-  faker.seed(parseFloat(src));
+  const fakerSeed = Number(src.replace(/\D/g, '')) * 10;
+  faker.seed(fakerSeed);
   const fakeAvatar = faker.image.avatarGitHub();
 
   return (
@@ -52,5 +53,3 @@ const UserCard: React.FC<CardProps> = ({
     </div>
   );
 };
-
-export default UserCard;

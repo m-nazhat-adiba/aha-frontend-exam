@@ -1,15 +1,24 @@
-import BasicButton from "@/components/button/BasicButton";
-import InputField from "@/components/input/InputField";
-import NonLinearSlider from "@/components/input/NonLinearSlider";
+/**
+ * @fileoverview A section component that includes input fields and a non-linear slider for search functionality.
+ *
+ * This component allows users to enter a keyword to search and select the number of results per page using a slider.
+ * It utilizes Redux for state management to handle input values and trigger search actions.
+ *
+ * @returns The rendered InputsSection component containing input fields and a slider for search functionality.
+ */
+
+import { BasicButton } from '@/components/button/BasicButton';
+import { InputField } from '@/components/input/InputField';
+import { NonLinearSlider } from '@/components/input/NonLinearSlider';
 import {
   setKeyword,
   setPageSize,
   setSearchTrigger,
-} from "@/lib/features/SearchSlice";
-import { RootState } from "@/lib/store";
-import { useDispatch, useSelector } from "react-redux";
+} from '@/lib/features/SearchSlice';
+import { RootState } from '@/lib/store';
+import { useDispatch, useSelector } from 'react-redux';
 
-const InputsSection = () => {
+export const InputsSection = () => {
   const inputValue = useSelector((state: RootState) => state.search.keyword);
   const sliderValue = useSelector((state: RootState) => state.search.pageSize);
   const marks = [3, 6, 9, 12, 15, 50];
@@ -73,5 +82,3 @@ const InputsSection = () => {
     </div>
   );
 };
-
-export default InputsSection;

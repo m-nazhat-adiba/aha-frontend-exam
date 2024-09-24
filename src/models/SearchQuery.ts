@@ -1,4 +1,4 @@
-import { User } from "./UsersQuery";
+import { User } from './UsersQuery';
 
 export interface SearchQueryParams {
   page: number;

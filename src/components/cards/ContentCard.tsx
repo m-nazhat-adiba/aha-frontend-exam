@@ -1,6 +1,6 @@
-import Image from "next/image";
-import React from "react";
-import { faker } from "@faker-js/faker";
+import Image from 'next/image';
+import React from 'react';
+import { faker } from '@faker-js/faker';
 
 interface CardProps {
   src: string;
@@ -8,8 +8,9 @@ interface CardProps {
   author: string;
 }
 
-const ContentCard: React.FC<CardProps> = ({ src, title, author }) => {
-  faker.seed(parseFloat(src));
+export const ContentCard: React.FC<CardProps> = ({ src, title, author }) => {
+  const seedNumber = Number(src.replace(/\D/g, '')) * 100;
+  faker.seed(seedNumber);
   const fakeImage = faker.image.url({ width: 100, height: 50 });
 
   return (
@@ -34,5 +35,3 @@ const ContentCard: React.FC<CardProps> = ({ src, title, author }) => {
     </div>
   );
 };
-
-export default ContentCard;

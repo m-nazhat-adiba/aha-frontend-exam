@@ -1,12 +1,24 @@
-"use client";
+/**
+ * @fileoverview The main component of the homepage that conditionally renders
+ * the input section or the search result based on the search trigger state.
+ *
+ * This component uses Redux to determine if the user has initiated a search,
+ * and it displays the appropriate section accordingly. It also includes a fixed
+ * networking section on the right side of the screen.
+ *
+ * @returns The rendered Home component containing the input
+ * section or search results, alongside the networking section.
+ */
 
-import InputsSection from "@/containers/homepage/InputsSection";
-import NetworkingSection from "@/containers/homepage/NetworkingSection";
-import SearchResult from "@/containers/homepage/SearchResult";
-import { RootState } from "@/lib/store";
-import { useSelector } from "react-redux";
+'use client';
 
-export default function Home() {
+import { InputsSection } from '@/containers/homepage/InputsSection';
+import { NetworkingSection } from '@/containers/homepage/NetworkingSection';
+import { SearchResult } from '@/containers/homepage/SearchResult';
+import { RootState } from '@/lib/store';
+import { useSelector } from 'react-redux';
+
+const Home = () => {
   const searchTrigger = useSelector(
     (state: RootState) => state.search.searchTrigger,
   );
@@ -20,4 +32,6 @@ export default function Home() {
       </div>
     </main>
   );
-}
+};
+
+export default Home;

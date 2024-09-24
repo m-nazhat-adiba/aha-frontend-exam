@@ -1,15 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
-import ContentCard from "./_components/ContentCard";
-import Image from "next/image";
-import BasicButton from "@/components/button/BasicButton";
-import { useDispatch, useSelector } from "react-redux";
-import { avlApi, useSearchQuery } from "@/lib/services/api";
-import { resetSearchState, setLoadMore } from "@/lib/features/SearchSlice";
-import { RootState } from "@/lib/store";
-import useInfiniteScroll from "@/hooks/useInfiniteScroll";
-import ContentCardSkeleton from "./_components/ContentCardSkeleton";
+/**
+ * @fileoverview A search result component that displays a list of search results
+ * based on a user's query. It supports pagination and infinite scrolling.
+ *
+ * This component fetches search results using the `useSearchQuery` hook
+ * and displays them in a grid format. It includes buttons for loading more results
+ * and clearing the search state.
+ *
+ * @returns The rendered SearchResult component containing search results.
+ */
 
-const SearchResult = () => {
+import React, { useEffect, useRef, useState } from 'react';
+import { ContentCard } from '../../components/cards/ContentCard';
+import Image from 'next/image';
+import { BasicButton } from '@/components/button/BasicButton';
+import { useDispatch, useSelector } from 'react-redux';
+import { userApi, useSearchQuery } from '@/lib/services/api';
+import { resetSearchState, setLoadMore } from '@/lib/features/SearchSlice';
+import { RootState } from '@/lib/store';
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
+import { ContentCardSkeleton } from '../../components/skeleton/ContentCardSkeleton';
+
+export const SearchResult = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [viewpoertWidth, setViewportWidth] = useState(window.innerWidth);
@@ -40,18 +51,18 @@ const SearchResult = () => {
   );
 
   const { items, handleScroll } = useInfiniteScroll(
-    searchResult?.data,
+    searchResult?.data || [],
     setPage,
     setHasMore,
     hasMore,
     isFetching,
     resultContainerRef,
-    searchResult?.total,
+    searchResult?.total || 0,
     100,
   );
 
   const handleClearSearchResult = () => {
-    dispatch(avlApi.util.invalidateTags(["SearchResult"]));
+    dispatch(userApi.util.invalidateTags(['SearchResult']));
     dispatch(resetSearchState());
   };
 
@@ -60,7 +71,7 @@ const SearchResult = () => {
     setPage((prevPage) => prevPage + 1);
   };
 
-  const arr = Array.from({ length: 9 }, (_, i) => i);
+  const skeletonArray = Array.from({ length: searchPageSize }, (_, i) => i);
 
   useEffect(() => {
     setViewportWidth(window.innerWidth);
@@ -72,8 +83,8 @@ const SearchResult = () => {
   return (
     <div
       ref={resultContainerRef}
-      onScroll={loadMore ? handleScroll : undefined} // Scroll only if enabled
-      className="no-scrollbar ml-0 flex h-full w-full flex-col items-start justify-between overflow-y-auto px-5 lg:ml-[80px] lg:px-[130px] lg:pt-[92px]"
+      onScroll={loadMore ? handleScroll : undefined}
+      className="no-scrollbar relative ml-0 flex h-full w-full flex-col items-start justify-between overflow-y-auto px-5 lg:ml-[80px] lg:px-[130px] lg:pt-[92px]"
     >
       <div className="mb-5 flex max-h-[70px] min-h-[70px] -translate-x-0 flex-row items-center gap-[13px] lg:mb-0 lg:h-auto lg:-translate-x-[38px] lg:transform lg:gap-[25px]">
         <div onClick={handleClearSearchResult}>
@@ -93,18 +104,18 @@ const SearchResult = () => {
       <div className="text-2xl lg:hidden">Results</div>
 
       <div className="grid w-full grid-cols-1 flex-wrap gap-[34px] pb-[58px] pt-6 sm:grid-cols-2 md:grid-cols-3 lg:flex lg:w-auto lg:flex-row lg:items-start lg:justify-start">
-        {searchResult &&
-          items.map((item, key) => (
-            <ContentCard
-              src={item.id}
-              title={item.name}
-              author={item.username}
-              key={key}
-            />
-          ))}
-        {!searchResult &&
-          arr.map((item, key) => <ContentCardSkeleton key={key} />)}
+        {searchResult
+          ? items.map((item, key) => (
+              <ContentCard
+                src={item.id}
+                title={item.name}
+                author={item.username}
+                key={key}
+              />
+            ))
+          : skeletonArray.map((item, key) => <ContentCardSkeleton key={key} />)}
       </div>
+
       <div className="hidden w-[343px] pt-[23px] lg:flex">
         {searchResult && items.length < searchResult.total && !loadMore && (
           <BasicButton onClick={handleLoadMore} variant="primary" size="large">
@@ -115,5 +126,3 @@ const SearchResult = () => {
     </div>
   );
 };
-
-export default SearchResult;

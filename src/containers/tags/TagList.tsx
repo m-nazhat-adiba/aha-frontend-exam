@@ -1,11 +1,18 @@
-"use client";
+/**
+ * @fileoverview A component that displays a list of tags as TagCard components.
+ *
+ * The component fetches tags from an API and renders them in a grid layout.
+ * If the data is still being fetched, it displays skeleton loaders for a better user experience.
+ *
+ * @returns The rendered TagList component containing TagCard or TagCardSkeleton components.
+ */
 
-import React from "react";
-import TagCard from "./_components/TagCard";
-import { useTagsQuery } from "@/lib/services/api";
-import TagCardSkeleton from "./_components/TagCardSkeleton";
+import React from 'react';
+import { TagCard } from '../../components/cards/TagCard';
+import { useTagsQuery } from '@/lib/services/api';
+import { TagCardSkeleton } from '../../components/skeleton/TagCardSkeleton';
 
-const TagList = () => {
+export const TagList = () => {
   const { data: tagsData, error, isFetching } = useTagsQuery();
   const skeletonArray = Array.from({ length: 12 }, (_, i) => i);
   return (
@@ -18,5 +25,3 @@ const TagList = () => {
     </div>
   );
 };
-
-export default TagList;
