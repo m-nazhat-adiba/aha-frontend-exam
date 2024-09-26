@@ -3,6 +3,8 @@
  * This hook listens to scroll events and triggers data fetching when the user
  * reaches the bottom of the container.
  *
+ * It also automatically fetch another page if there is still a room in the viewport
+ *
  * @param fetchedData - The data fetched from the API.
  * @param setPage - Function to increment the current page number.
  * @param setHasMore - Function to set whether more data is available.
@@ -11,6 +13,7 @@
  * @param containerRef - The container to monitor for scrolling.
  * @param total - The total number of items available for fetching.
  * @param offset - The pixel offset of the container.
+ * @param autoFill - boolean flag to trigger the autofill function
  * @return The current list of items and the scroll handler function.
  */
 
@@ -26,8 +29,15 @@ export const useInfiniteScroll = (
   containerRef: React.RefObject<HTMLDivElement>,
   total: number,
   offset: number,
+  autoFill: boolean = true,
 ) => {
   const [items, setItems] = useState<User[]>([]);
+
+  // Reset items
+  useEffect(() => {
+    setItems([]);
+    setPage(1);
+  }, []);
 
   // Check if the container's height is less than the viewport height
   const fetchUntilFull = useCallback(() => {
@@ -66,7 +76,7 @@ export const useInfiniteScroll = (
 
   // Trigger fetching until the container is full (height is the same as the screen)
   useEffect(() => {
-    if (fetchedData.length > 0) {
+    if (autoFill && fetchedData.length > 0) {
       fetchUntilFull();
     }
   }, [fetchUntilFull, fetchedData]);

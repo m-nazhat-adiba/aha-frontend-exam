@@ -1,3 +1,19 @@
+/**
+ * @fileoverview
+ * This component displays user information including
+ * an avatar, name, and username. It also includes a button that reflects the
+ * current following status of the user. The avatar image is generated using
+ * Faker.js based on a seed derived from the `src` prop.
+ * The card layout is responsive and adapts for different screen sizes
+ *
+ * @param name - The user's display name.
+ * @param username - The user's username.
+ * @param src - The source string used to generate a unique avatar image.
+ * @param isFollowing - Boolean flag to indicate whether the user is followed or not.
+ *
+ * @returns A rendered user card with avatar, name, username, and follow button.
+ */
+
 import { BasicButton } from '@/components/button/BasicButton';
 import { faker } from '@faker-js/faker';
 import Image from 'next/image';

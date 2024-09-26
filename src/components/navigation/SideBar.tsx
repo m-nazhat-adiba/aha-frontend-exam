@@ -1,45 +1,45 @@
 /**
- * @fileoverview A sidebar component that provides navigation links for the application.
+ * @fileoverview A sidebar component that provides navigation links
+ * for the application.
+ * The sidebar consists of a vertical navigation menu for desktop and
+ * a bottom navigation bar for mobile devices.
+ * Each menu item can display an icon and a name, highlighting the
+ * current active route.
  *
- * The sidebar consists of a vertical navigation menu for desktop and a bottom navigation bar for mobile devices.
- * Each menu item can display an icon and a name, highlighting the current active route.
- *
- * @component
- *
- * Menu Component
+ * @component Menu Component
  *
  * @param target - The target URL for the menu item.
  * @param icon - The icon URL for the menu item.
  * @param name - The display name for the menu item.
- *
+ * @param carrying - an additional path for highlighting the menu item when active
  * @returns The rendered Menu component.
  *
- * SideBar Component
+ * @component SideBar Component
  *
  * @returns The rendered sidebar component containing Menu items.
  */
 
 'use client';
 
-import { RootState } from '@/lib/store';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useSelector } from 'react-redux';
 
 interface MenuProps {
   target: string;
   icon: string;
   name: string;
+  carrying?: string;
 }
 
 const Menu: React.FC<MenuProps> = ({
   target = '/',
   icon = '/Union.svg',
   name = 'Home',
+  carrying,
 }) => {
-  const path = usePathname();
+  let path = usePathname();
 
   return (
     <Link href={target}>
@@ -49,20 +49,17 @@ const Menu: React.FC<MenuProps> = ({
         width={24}
         height={24}
         className={`mx-auto cursor-pointer hover:contrast-[2] ${
-          path === target && 'contrast-[15] invert'
+          (path === target || path === carrying) && 'contrast-[15] invert'
         }`}
       />
       <span className="mx-auto inline-block text-xs">
-        {path === target && name}
+        {(path === target || path === carrying) && name}
       </span>
     </Link>
   );
 };
 
 export const SideBar = () => {
-  const searchTrigger = useSelector(
-    (state: RootState) => state.search.searchTrigger,
-  );
   const path = usePathname();
 
   return (
@@ -77,7 +74,12 @@ export const SideBar = () => {
           </div>
         </div>
         <div className="mx-auto flex h-auto w-full flex-col items-center gap-[22px]">
-          <Menu target="/" name="Home" icon="/icons/union.svg" />
+          <Menu
+            target="/"
+            name="Home"
+            icon="/icons/union.svg"
+            carrying="/result"
+          />
           <Menu target="/tags" name="Tags" icon="/icons/union.svg" />
         </div>
       </nav>
@@ -86,7 +88,7 @@ export const SideBar = () => {
       <nav
         className={clsx(
           'bottom-0 z-[9999] flex h-[66px] w-full items-center bg-[#202020]',
-          searchTrigger || path !== '/' ? 'hidden' : 'fixed lg:hidden',
+          path !== '/' ? 'hidden' : 'fixed lg:hidden',
         )}
       >
         <div className="flex w-full flex-row justify-center gap-[50px] align-middle">

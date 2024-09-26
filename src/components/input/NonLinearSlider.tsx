@@ -18,7 +18,7 @@ import {
   defaultGenerateMarks,
   defaultLabelToValue,
   defaultValueToLabel,
-} from '../../utils/NonLinearSliderFunction';
+} from '@/helpers/nonLinearSliderFunction';
 
 interface Props {
   sliderMarks: number[];

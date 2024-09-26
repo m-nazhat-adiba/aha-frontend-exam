@@ -1,5 +1,5 @@
 /**
- * @fileoverview Utility functions for generating marks and converting between labels and values for a slider component.
+ * @fileoverview helper functions for generating marks and converting between labels and values for a slider component.
  */
 
 /**

@@ -1,7 +1,6 @@
 /**
  * @fileoverview Redux slice for managing search-related state, including keyword, page size, and load more functionality.
  *
- * @property searchTrigger - Indicates if a search should be triggered.
  * @property keyword - The search keyword.
  * @property pageSize - The number of items per page.
  * @property loadMore - Indicates whether to load more results.
@@ -12,14 +11,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 interface SearchState {
-  searchTrigger: boolean;
   keyword: string;
   pageSize: number;
   loadMore: boolean;
 }
 
 const initialState: SearchState = {
-  searchTrigger: false,
   keyword: '',
   pageSize: 9,
   loadMore: false,
@@ -29,11 +26,6 @@ const searchSlice = createSlice({
   name: 'search',
   initialState,
   reducers: {
-    /** Sets the search trigger state. */
-    setSearchTrigger(state, action) {
-      state.searchTrigger = action.payload;
-    },
-
     /** Updates the search keyword. */
     setKeyword(state, action) {
       state.keyword = action.payload;
@@ -56,11 +48,6 @@ const searchSlice = createSlice({
   },
 });
 
-export const {
-  setSearchTrigger,
-  setKeyword,
-  setPageSize,
-  resetSearchState,
-  setLoadMore,
-} = searchSlice.actions;
+export const { setKeyword, setPageSize, resetSearchState, setLoadMore } =
+  searchSlice.actions;
 export default searchSlice.reducer;

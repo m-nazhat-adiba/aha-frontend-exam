@@ -1,8 +1,6 @@
 /**
  * @fileoverview A component that displays a card for a tag, showing the tag name and total results.
  *
- * @component
- *
  * @param name - The name of the tag to be displayed.
  * @param total - The total number of results associated with the tag.
  *

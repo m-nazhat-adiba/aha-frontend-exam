@@ -1,3 +1,15 @@
+/**
+ * @fileoverview This component displays a card with an image, title, and author.
+ * It generates a random image based on the `src` prop using the Faker.js library.
+ * The component is responsive and adjusts layout for larger screens.
+ *
+ * @param src - The source string used to generate a unique random image.
+ * @param title - The title of the content displayed on the card.
+ * @param author - The author of the content displayed on the card.
+ *
+ * @returns A rendered content card with an image, title, and author.
+ */
+
 import Image from 'next/image';
 import React from 'react';
 import { faker } from '@faker-js/faker';

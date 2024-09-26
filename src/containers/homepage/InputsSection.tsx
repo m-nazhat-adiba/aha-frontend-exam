@@ -1,10 +1,17 @@
 /**
- * @fileoverview A section component that includes input fields and a non-linear slider for search functionality.
+ * @fileoverview A section component that includes input fields and
+ * a non-linear slider for search functionality.
  *
- * This component allows users to enter a keyword to search and select the number of results per page using a slider.
- * It utilizes Redux for state management to handle input values and trigger search actions.
+ * This component allows users to enter a keyword to search and select
+ * the number of results per page using a slider. The search is triggered
+ * by a button click, which updates the URL with the search parameters.
  *
- * @returns The rendered InputsSection component containing input fields and a slider for search functionality.
+ * It utilizes Redux for state management to handle the input values,
+ * slider values, and to trigger search actions by dispatching actions to
+ * update the store. The Next.js router is used to navigate to the search result page.
+ *
+ * @returns The rendered InputsSection component containing input fields,
+ * a non-linear slider, and a button to trigger the search.
  */
 
 import { BasicButton } from '@/components/button/BasicButton';
@@ -12,25 +19,31 @@ import { InputField } from '@/components/input/InputField';
 import { NonLinearSlider } from '@/components/input/NonLinearSlider';
 import {
   setKeyword,
+  setLoadMore,
   setPageSize,
-  setSearchTrigger,
 } from '@/lib/features/SearchSlice';
 import { RootState } from '@/lib/store';
+import { createParams } from '@/utils/createParams';
+import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
 export const InputsSection = () => {
   const inputValue = useSelector((state: RootState) => state.search.keyword);
   const sliderValue = useSelector((state: RootState) => state.search.pageSize);
-  const marks = [3, 6, 9, 12, 15, 50];
-
   const dispatch = useDispatch();
+  const route = useRouter();
+
+  const marks = [3, 6, 9, 12, 15, 50];
+  const pageSize = createParams('pageSize', sliderValue);
+  const keyword = createParams('keyword', inputValue);
 
   const handleSliderChange = (value: number) => {
     dispatch(setPageSize(value));
   };
 
   const handleSearch = () => {
-    dispatch(setSearchTrigger(true));
+    dispatch(setLoadMore(false));
+    route.push(`/result?${keyword}&${pageSize}`);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

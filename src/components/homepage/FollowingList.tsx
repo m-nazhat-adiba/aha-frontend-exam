@@ -1,3 +1,14 @@
+/**
+ * @fileoverview
+ * The `FollowingList` component fetches and displays a list of friends.
+ * It implements infinite scroll to manage loading more data when
+ * the user scrolls to the bottom of the list. The component
+ * The component includes skeleton loaders when the data is being fetched.
+ *
+ * @param  offset - The offset value used to manage infinite scroll position.
+ * @returns Rendered following list with infinite scrolling.
+ */
+
 import React, { useRef, useState } from 'react';
 import { UserCard } from '../cards/UserCard';
 import { useFollowingQuery } from '@/lib/services/api';

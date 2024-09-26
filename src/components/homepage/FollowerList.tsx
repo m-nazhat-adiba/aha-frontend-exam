@@ -1,3 +1,17 @@
+/**
+ * @fileoverview
+ * The `FollowerList` component fetches and displays a list of followers.
+ * It implements infinite scroll to manage loading more data when
+ * the user scrolls to the bottom of the list. The component
+ * also uses visibility and scroll observers to
+ * stop the component to fetch the data when the
+ * component was not appeared in the viewport.
+ * The component includes skeleton loaders when the data is being fetched.
+ *
+ * @param  offset - The offset value used to manage infinite scroll position.
+ * @returns Rendered follower list with infinite scrolling.
+ */
+
 import React, { useState, useRef, useEffect } from 'react';
 import { UserCard } from '../cards/UserCard';
 import { useFollowerQuery } from '@/lib/services/api';
@@ -32,7 +46,7 @@ export const FollowerList = ({ offset }: Props) => {
       pageSize: 20,
     },
     {
-      skip: !hasMore,
+      skip: !hasMore || !isVisible,
     },
   );
 

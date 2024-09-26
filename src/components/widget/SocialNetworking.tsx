@@ -1,20 +1,31 @@
 /**
- * @fileoverview A networking section component that displays lists of followers and following users.
+ * @fileoverview A networking widget component that displays lists of
+ * followers and following users.
  *
- * This component allows users to switch between viewing their followers and the users they are following.
- * It utilizes React's state and effect hooks to manage the active tab and dynamically adjust the height of the tab header.
+ * This component allows users to switch between viewing their followers
+ * and the users they are following.
+ * It utilizes React's state and effect hooks to manage the active tab
+ * and dynamically adjust the height of the tab header.
  *
- * @returns The rendered NetworkingSection component containing the tabs and the respective lists.
+ * @returns The rendered NetworkingSection component containing
+ * the tabs and the respective lists.
  */
 
-import { useEffect, useRef, useState } from 'react';
-import { FollowerList } from '../../components/homepage/FollowerList';
-import { FollowingList } from '../../components/homepage/FollowingList';
+'use client';
 
-export const NetworkingSection = () => {
+import { useEffect, useRef, useState } from 'react';
+import { FollowerList } from '../homepage/FollowerList';
+import { FollowingList } from '../homepage/FollowingList';
+import { usePathname } from 'next/navigation';
+import clsx from 'clsx';
+
+export const SocialNetworking = () => {
   const [tabActive, setTabActive] = useState(0);
   const tabRef = useRef<HTMLDivElement | null>(null);
   const [height, setHeight] = useState(0);
+  const path = usePathname();
+
+  const allowedPath = ['/', '/result'];
 
   useEffect(() => {
     if (tabRef.current) {
@@ -23,7 +34,12 @@ export const NetworkingSection = () => {
   }, []);
 
   return (
-    <div className="h-[102 hidden w-auto lg:flex lg:w-[375px] lg:flex-col">
+    <div
+      className={clsx(
+        'h-[102 w-auto lg:w-[375px]',
+        allowedPath.includes(path) ? 'hidden lg:flex lg:flex-col' : 'hidden',
+      )}
+    >
       <div
         ref={tabRef}
         className="flex flex-row justify-between py-8 text-base"

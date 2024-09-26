@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { Ubuntu } from 'next/font/google';
 import './globals.css';
-import { SideBar } from '@/components/navigation/SideBar';
 import { StoreProvider } from './StoreProvider';
+import { MasterLayout } from '@/components/layout/MasterLayout';
 
 const ubuntu = Ubuntu({
   subsets: ['latin'],
@@ -23,8 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <StoreProvider>
         <body className={ubuntu.className}>
-          <SideBar />
-          {children}
+          <MasterLayout>{children}</MasterLayout>
         </body>
       </StoreProvider>
     </html>
