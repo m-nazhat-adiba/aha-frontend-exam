@@ -2,6 +2,8 @@
 
 I use faker.js to generate image. The reason is the image link from the API cannot be used (cdn fakercloud terminated its service)
 
+Visit the deployed site: [Aha Exam](https://aha-frontend-exam-ah8b1t0b9-mnazhatadibas-projects.vercel.app/)
+
 ## Framework and Libraries
 
 - Next.js 14 App Router
