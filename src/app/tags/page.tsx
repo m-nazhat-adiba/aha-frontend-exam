@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * @fileoverview The main tags component of Tags page, displays a list of tags and provides a
  * navigation option to return to the home page. It uses a responsive layout
@@ -9,8 +11,6 @@
  * @returns The rendered Tags component containing a back button,
  * a title, and the TagList.
  */
-
-'use client';
 
 import { TagList } from '@/containers/tags/TagList';
 import Image from 'next/image';

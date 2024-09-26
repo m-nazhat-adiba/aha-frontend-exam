@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * @fileoverview The main component of search result page.
  * It shows the fetched data based on the
@@ -9,8 +11,6 @@
  * containing fetched data (presented as cards)
  * and social widget
  */
-
-'use client';
 
 import { SearchResult } from '@/containers/search-page/SearchResult';
 import React from 'react';

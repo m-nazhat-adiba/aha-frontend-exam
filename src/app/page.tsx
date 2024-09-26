@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * @fileoverview The main component of the homepage.
  * This component uses Redux to determine if the user has initiated a search,
@@ -7,8 +9,6 @@
  * @returns The rendered Home component containing the input section alongside the
  * social widget.
  */
-
-'use client';
 
 import { InputsSection } from '@/containers/homepage/InputsSection';
 
