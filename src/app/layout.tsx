@@ -3,6 +3,7 @@ import { Ubuntu } from 'next/font/google';
 import './globals.css';
 import { StoreProvider } from './StoreProvider';
 import { MasterLayout } from '@/components/layout/MasterLayout';
+import { Suspense } from 'react';
 
 const ubuntu = Ubuntu({
   subsets: ['latin'],
@@ -22,9 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <StoreProvider>
-        <body className={ubuntu.className}>
-          <MasterLayout>{children}</MasterLayout>
-        </body>
+        <Suspense>
+          <body className={ubuntu.className}>
+            <MasterLayout>{children}</MasterLayout>
+          </body>
+        </Suspense>
       </StoreProvider>
     </html>
   );
