@@ -2,7 +2,7 @@
 
 I use faker.js to generate image. The reason is the image link from the API cannot be used (cdn fakercloud terminated its service)
 
-### Framework and Libraries
+## Framework and Libraries
 
 - Next.js 14 App Router
 - React 18
@@ -10,15 +10,15 @@ I use faker.js to generate image. The reason is the image link from the API cann
 - Redux Toolkit
 - Material UI
 
-### How To Run in Development
+## How To Run in Development
 
 Add .env file in the root. You can look at .env.example as an example.
 
-# Install all packages
+### Install all packages
 
 npm install
 
-# Run in development
+### Run in development
 
 npm run dev
 
