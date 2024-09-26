@@ -11,6 +11,8 @@
  * @returns The rendered SearchResult component displaying search results in a grid format with infinite scrolling.
  */
 
+'use client';
+
 import React, { useEffect, useRef, useState } from 'react';
 import { ContentCard } from '../../components/cards/ContentCard';
 import Image from 'next/image';
