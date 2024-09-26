@@ -11,8 +11,6 @@
  * @returns The rendered SearchResult component displaying search results in a grid format with infinite scrolling.
  */
 
-'use client';
-
 import React, { useEffect, useRef, useState } from 'react';
 import { ContentCard } from '../../components/cards/ContentCard';
 import Image from 'next/image';
@@ -28,7 +26,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 export const SearchResult = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [viewpoertWidth, setViewportWidth] = useState(window.innerWidth);
   const loadMore = useSelector((state: RootState) => state.search.loadMore);
   const resultContainerRef = useRef<HTMLDivElement | null>(null);
   const dispatch = useDispatch();
@@ -79,8 +76,7 @@ export const SearchResult = () => {
   };
 
   useEffect(() => {
-    setViewportWidth(window.innerWidth);
-    if (viewpoertWidth <= 640) {
+    if (window.innerWidth <= 640) {
       dispatch(setLoadMore(true));
     }
   }, [window.innerWidth]);
