@@ -46,16 +46,9 @@ export const NonLinearSlider: React.FC<Props> = ({
   const handleChange = useCallback(
     (event: Event, newValue: number | number[]) => {
       const resolvedValue = newValue as number;
-      const snapValue =
-        resolvedValue % 2 === 0 ? resolvedValue : resolvedValue + 1;
-      const finalValue =
-        resolvedValue <= marks[marks.length - 2].value
-          ? snapValue
-          : marks[marks.length - 1].value;
 
-      setVal(finalValue);
-      setSliderValue(valueToLabel(marks, finalValue));
-      console.log(valueToLabel(marks, finalValue), 'slider label');
+      setVal(resolvedValue);
+      setSliderValue(valueToLabel(marks, resolvedValue));
     },
     [marks, setSliderValue, valueToLabel],
   );
@@ -79,7 +72,7 @@ export const NonLinearSlider: React.FC<Props> = ({
         marks={marks}
         onChange={handleChange}
         min={0}
-        max={sliderMarks.length * 2}
+        max={sliderMarks.length - 1}
         value={val}
       />
     </div>

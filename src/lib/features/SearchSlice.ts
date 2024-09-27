@@ -18,7 +18,7 @@ interface SearchState {
 
 const initialState: SearchState = {
   keyword: '',
-  pageSize: 9,
+  pageSize: 12,
   loadMore: false,
 };
 
