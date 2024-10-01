@@ -31,6 +31,7 @@ body {
 
 .MuiSlider-root {
   height: 8px;
+  padding-block: 6px;
   .MuiSlider-rail {
     background-color: #5d5d5d;
     opacity: 100;
@@ -64,12 +65,14 @@ body {
   }
   .MuiSlider-thumb {
     background: rgb(255, 208, 93);
+    height: 26px;
+    width: 26px;
   }
   .MuiSlider-thumb::after {
     transform: translate(-50%, -50%);
     content: '';
-    width: 10px;
-    height: 10px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     background: black;
   }

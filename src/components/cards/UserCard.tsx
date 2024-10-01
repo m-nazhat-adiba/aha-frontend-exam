@@ -50,13 +50,13 @@ export const UserCard: React.FC<CardProps> = ({
         </div>
         <div className="flex flex-col">
           <span className="text-base font-normal">{name}</span>
-          <span className="text-sm text-[#8d8d8d]">{`@${username}`}</span>
+          <span className="text-sm leading-[21px] text-[#8d8d8d]">{`@${username}`}</span>
         </div>
       </div>
       {isFollowing ? (
         <div className="flex w-[80px]">
           <BasicButton variant="contained" type="button" size="small">
-            Followed
+            Following
           </BasicButton>
         </div>
       ) : (

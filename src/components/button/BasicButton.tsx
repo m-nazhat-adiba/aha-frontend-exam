@@ -56,7 +56,8 @@ export const BasicButton: React.FC<Props> = ({
     },
     // Sizes
     {
-      'h-8 text-xs px-2 flex items-center justify-center': size === 'small',
+      ' text-xs leading-[12px] px-2 flex items-center justify-center':
+        size === 'small',
       'h-10 text-sm px-3 flex items-center justify-center': size === 'large',
     },
   );

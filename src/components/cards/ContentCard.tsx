@@ -26,7 +26,7 @@ export const ContentCard: React.FC<CardProps> = ({ src, title, author }) => {
   const fakeImage = faker.image.url({ width: 100, height: 50 });
 
   return (
-    <div className="flex w-full flex-col gap-3 pb-2 lg:w-auto">
+    <div className="flex w-full flex-col gap-[20.33px] pb-2 md:gap-3 lg:w-auto">
       <div className="flex h-[222.67px] w-full overflow-hidden lg:h-[146px] lg:w-[219px]">
         <Image
           src={fakeImage}

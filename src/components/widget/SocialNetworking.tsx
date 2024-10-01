@@ -42,7 +42,7 @@ export const SocialNetworking = () => {
     >
       <div
         ref={tabRef}
-        className="flex flex-row justify-between py-8 text-base"
+        className="flex flex-row justify-between pb-[30px] pt-8 text-base"
       >
         <button
           onClick={() => setTabActive(0)}

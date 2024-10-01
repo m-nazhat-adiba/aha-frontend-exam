@@ -42,17 +42,17 @@ const Menu: React.FC<MenuProps> = ({
   let path = usePathname();
 
   return (
-    <Link href={target}>
+    <Link href={target} className="flex flex-col gap-0">
       <Image
         src={icon}
         alt={name}
         width={24}
         height={24}
-        className={`mx-auto cursor-pointer hover:contrast-[2] ${
+        className={`mx-auto h-6 w-6 cursor-pointer p-[2px] hover:contrast-[2] ${
           (path === target || path === carrying) && 'contrast-[15] invert'
         }`}
       />
-      <span className="mx-auto inline-block text-xs">
+      <span className="mx-auto hidden text-xs leading-[18px] lg:inline-block">
         {(path === target || path === carrying) && name}
       </span>
     </Link>
@@ -68,12 +68,12 @@ export const SideBar = () => {
       <nav className="left-0 hidden h-full w-20 flex-col bg-[#202020] lg:fixed lg:flex">
         <div className="h-[88px] w-full">
           <div className="mb-2 flex h-[88px] w-full justify-center">
-            <span className="flex items-center justify-center bg-gradient-to-r from-[#FFD25F] to-[#FF5C01] bg-clip-text text-[13px] font-bold text-transparent">
+            <span className="flex items-center justify-center bg-gradient-to-r from-[#FFD25F] to-[#FF5C01] bg-clip-text text-[13px] font-bold leading-[15px] text-transparent">
               LOGO
             </span>
           </div>
         </div>
-        <div className="mx-auto flex h-auto w-full flex-col items-center gap-[22px]">
+        <div className="mx-auto mt-[7px] flex h-auto w-full flex-col items-center gap-[22px]">
           <Menu
             target="/"
             name="Home"

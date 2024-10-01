@@ -22,10 +22,12 @@ import { RootState } from '@/lib/store';
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 import { ContentCardSkeleton } from '../../components/skeleton/ContentCardSkeleton';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useViewportListener } from '@/hooks/useViewportListener';
 
 export const SearchResult = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [viewport, setViewport] = useState(1440);
   const loadMore = useSelector((state: RootState) => state.search.loadMore);
   const resultContainerRef = useRef<HTMLDivElement | null>(null);
   const dispatch = useDispatch();
@@ -64,6 +66,8 @@ export const SearchResult = () => {
     loadMore,
   );
 
+  const { width, height } = useViewportListener();
+
   const handleBackward = () => {
     dispatch(userApi.util.invalidateTags(['SearchResult']));
     dispatch(resetSearchState());
@@ -76,10 +80,11 @@ export const SearchResult = () => {
   };
 
   useEffect(() => {
-    if (window.innerWidth <= 640) {
+    if (width && width <= 640) {
       dispatch(setLoadMore(true));
     }
-  }, [window.innerWidth]);
+    console.log(width, 'lebar');
+  }, [width]);
 
   useEffect(() => {
     if (!searchParams.has('keyword') || !searchParams.has('pageSize')) {
@@ -93,7 +98,7 @@ export const SearchResult = () => {
       onScroll={loadMore ? handleScroll : undefined}
       className="no-scrollbar relative ml-0 flex h-auto w-full flex-col items-start overflow-y-auto px-5 lg:ml-[80px] lg:px-[130px] lg:pt-[92px]"
     >
-      <div className="mb-5 flex max-h-[70px] min-h-[70px] -translate-x-0 flex-row items-center gap-[13px] lg:mb-0 lg:h-auto lg:min-h-[45px] lg:-translate-x-[38px] lg:transform lg:gap-[25px]">
+      <div className="mb-5 flex max-h-[70px] min-h-[70px] -translate-x-0 flex-row items-center gap-[13px] lg:mb-0 lg:h-auto lg:min-h-[45px] lg:-translate-x-[46px] lg:transform lg:gap-[25px]">
         <div onClick={handleBackward}>
           <Image
             alt="back"
@@ -108,7 +113,7 @@ export const SearchResult = () => {
           Results
         </span>
       </div>
-      <div className="text-2xl lg:hidden">Results</div>
+      <div className="text-2xl leading-[36px] lg:hidden">Results</div>
 
       <div className="grid w-full grid-cols-1 flex-wrap gap-[34px] pb-[58px] pt-6 sm:grid-cols-2 md:grid-cols-3 lg:flex lg:w-auto lg:flex-row lg:flex-wrap lg:items-start lg:justify-start lg:pb-[12px]">
         {searchResult
@@ -123,7 +128,7 @@ export const SearchResult = () => {
           : skeletonArray.map((item, key) => <ContentCardSkeleton key={key} />)}
       </div>
 
-      <div className="hidden w-[343px] pt-[23px] lg:flex">
+      <div className="hidden w-[343px] pt-[17px] lg:flex">
         {searchResult && items.length < searchResult.total && !loadMore ? (
           <BasicButton onClick={handleLoadMore} variant="primary" size="large">
             MORE

@@ -20,8 +20,8 @@ import React from 'react';
 const Tags = () => {
   return (
     <main className="flex w-full translate-x-0 flex-row justify-center lg:w-[calc(100vw_-_80px)] lg:translate-x-[80px]">
-      <div className="flex h-auto w-full flex-col items-start justify-between px-5 lg:max-w-[846px] lg:px-0 lg:pt-[58px]">
-        <div className="mb-5 flex h-[70px] flex-row items-center gap-[13px] md:mb-0 lg:-translate-x-[38px] lg:transform">
+      <div className="flex h-auto w-full flex-col items-start justify-between px-5 lg:max-w-[846px] lg:px-0 lg:pt-[80px]">
+        <div className="mb-5 flex h-[70px] flex-row items-center gap-[13px] md:mb-0 lg:h-[45px] lg:-translate-x-[38px] lg:transform">
           <Link href={'/'}>
             <Image
               alt="back"
@@ -36,8 +36,8 @@ const Tags = () => {
             Tags
           </span>
         </div>
-        <div className="mx-auto flex flex-col">
-          <div className="text-2xl lg:hidden">Tags</div>
+        <div className="flex w-full flex-col">
+          <div className="text-2xl leading-[36px] lg:hidden">Tags</div>
           <TagList />
         </div>
       </div>

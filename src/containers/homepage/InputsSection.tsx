@@ -53,8 +53,8 @@ export const InputsSection = () => {
 
   return (
     <div className="flex h-full w-full translate-x-0 flex-col items-start px-5 pt-0 lg:translate-x-[80px] lg:px-[130px] lg:pt-[58px]">
-      <div className="block h-[88px] w-full lg:hidden">
-        <div className="mb-2 flex h-[88px] w-full">
+      <div className="block w-full lg:hidden">
+        <div className="flex h-[70px] w-full">
           <span className="flex items-center justify-center bg-gradient-to-r from-[#FFD25F] to-[#FF5C01] bg-clip-text text-[13px] font-bold leading-[14.94] text-transparent">
             LOGO
           </span>
@@ -63,7 +63,7 @@ export const InputsSection = () => {
       <form className="w-full">
         <label
           htmlFor="search-field"
-          className="mb-5 block text-2xl font-light"
+          className="mb-4 block text-2xl font-light leading-[36px] lg:mb-5"
         >
           Search
         </label>
@@ -74,14 +74,16 @@ export const InputsSection = () => {
           onChange={handleChange}
         />
       </form>
-      <div className="mt-7 hidden w-[725px] border border-solid border-[#302E30] lg:flex"></div>
-      <div className="flex w-full flex-col">
-        <p className="pb-6 pt-7 text-2xl font-light"># Of results per page</p>
-        <div className="flex flex-row items-center gap-[10px]">
+      <div className="mt-[30px] hidden w-[725px] border-[0.5px] border-solid border-[#302E30] lg:flex"></div>
+      <div className="flex w-full flex-col items-start justify-start gap-[19px]">
+        <p className="pt-[30px] text-2xl font-normal leading-9">
+          # Of Results Per Page
+        </p>
+        <div className="flex h-[50px] flex-row items-end gap-[10px]">
           <span className="text-5xl font-bold">{sliderValue}</span>
-          <span className="text-base">result</span>
+          <span className="pb-1 text-base">results</span>
         </div>
-        <div className="w-full pt-5">
+        <div className="w-full">
           <NonLinearSlider
             sliderMarks={marks}
             setSliderValue={handleSliderChange}
