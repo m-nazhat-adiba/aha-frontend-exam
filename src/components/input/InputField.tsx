@@ -29,6 +29,7 @@ export const InputField: React.FC<Props> = ({
 }) => {
   return (
     <input
+      type="text"
       id={inputId}
       className="h-[60px] w-full rounded-[6px] border-4 border-solid border-[#ffffff80] bg-neutrals-900 px-3 text-sm focus:border-[#ff9b33] focus:outline-none"
       placeholder={placeholder}

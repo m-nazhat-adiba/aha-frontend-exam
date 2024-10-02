@@ -60,7 +60,7 @@ export const InputsSection = () => {
           </span>
         </div>
       </div>
-      <form className="w-full">
+      <div className="w-full">
         <label
           htmlFor="search-field"
           className="mb-4 block text-2xl font-light leading-[36px] lg:mb-5"
@@ -73,7 +73,7 @@ export const InputsSection = () => {
           value={inputValue}
           onChange={handleChange}
         />
-      </form>
+      </div>
       <div className="mt-[30px] hidden w-[725px] border-[0.5px] border-solid border-[#302E30] lg:flex"></div>
       <div className="flex w-full flex-col items-start justify-start gap-[19px]">
         <p className="pt-[30px] text-2xl font-normal leading-9">
